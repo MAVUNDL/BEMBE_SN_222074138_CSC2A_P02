@@ -1,4 +1,4 @@
-package acsse.csc2a.fmb;
+package acsse.csc2a;
 
 import java.util.Vector;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ public class FireworkDisplay
     private String Display_Name; // stores the name of the display the firework will produce
     private String Display_Theme; // stores the theme produced by the firework
     private PyroTechnician Technician; // an object of the PyroTechnician class
-    private Vector<Fireworks> fireworks_object; // a vector of objects of the Fireworks class
+    private Fireworks[] fireworks_object; // an array of objects of the Fireworks class
 
     /**
      * This is a default constructor
@@ -23,7 +23,7 @@ public class FireworkDisplay
         this.Display_Name = "Killer Man";
         this.Display_Theme = "Smooth";
         this.Technician = new PyroTechnician();
-        this.fireworks_object = new Vector<>();
+        this.fireworks_object = new Fireworks[2];
     }
 
     /**
@@ -32,17 +32,19 @@ public class FireworkDisplay
      * @param Display_name stores the name of the Display
      * @param Theme stores the type of theme produced by the display
      * @param tech_object is an object of the PyroTechnicians
-     * @param fireworks is the first object for the first Firework and the second object for the second Firework
+     * @param object1 is the first object for the first Firework
+     * @param  object2 is the second object for the second Firework
      */
-    FireworkDisplay(String Display_id, String Display_name, String Theme, PyroTechnician tech_object, Fireworks... fireworks)
+    FireworkDisplay(String Display_id, String Display_name, String Theme, PyroTechnician tech_object, Fireworks object1, Fireworks object2)
     {
         this.Display_ID = Display_id;
         this.Display_Name = Display_name;
         this.Display_Theme = Theme;
         this.Technician =  new PyroTechnician(tech_object.getFull_name(), tech_object.getPhone_Number());
-        //
-        this.fireworks_object = new Vector<>();
-        this.fireworks_object.addAll(Arrays.asList(fireworks));
+        this.fireworks_object = new Fireworks[2];
+
+        // adding the objects to the array
+        this.fireworks_object = new Fireworks[]{object1, object2};
     }
 
     /**
@@ -51,7 +53,18 @@ public class FireworkDisplay
      */
     public void Add_new_Fireworks(Fireworks fireworks)
     {
-        this.fireworks_object.add(fireworks);
+        // create a new Temporary array that bigger that the current array
+        Fireworks[] Temporary_array = new Fireworks[this.fireworks_object.length + 1];
+        // copying all the elements from the current array to the temporary array
+        for(int i = 0; i < this.fireworks_object.length; i++)
+        {
+            Temporary_array[i] = this.fireworks_object[i];
+        }
+        // add the new object at the last index of the temp array
+        Temporary_array[this.fireworks_object.length] = fireworks;
+
+        // assign the reference of the temporary array to the current array ensuring that the changes are performed
+        this.fireworks_object = Temporary_array;
     }
 
     /**
@@ -74,9 +87,9 @@ public class FireworkDisplay
         // displaying the information of the technician in charge
         Technician_details();
         // Displaying the information of th Firework used
-        for(Fireworks fireworks: fireworks_object)
+        for(int i = 0; i < this.fireworks_object.length; i++)
         {
-            fireworks.Firework_information();
+            this.fireworks_object[i].Firework_information();
         }
 
     }

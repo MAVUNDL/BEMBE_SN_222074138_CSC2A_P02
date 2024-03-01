@@ -1,4 +1,4 @@
-package acsse.csc2a.fmb;
+package acsse.csc2a;
 
 /**
  * This class keeps track of the PyroTechnicians

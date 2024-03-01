@@ -1,18 +1,4 @@
-package acsse.csc2a.fmb;
-
-/**
- * This enumeration will contain the colours produced by the fireworks
- */
-enum E_COLOUR
-{
-    RED,
-    GREEN,
-    BLUE,
-    YELLOW,
-    MAGENTA,
-    WHITE,
-    CYAN;
-}
+package acsse.csc2a;
 
 /**
  * This class will contain the information of the firework
